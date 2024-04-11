@@ -1,0 +1,27 @@
+/* CSS cho các tab */
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+    color: black;
+    text-align: center!;
+    background-color: #e0dedc;
+}
+
+.nav-tabs .nav-link {
+    color: rgb(0 0 0 / 30%);
+}
+
+/* CSS cho nội dung của các tab */
+.tab-content .tab-pane {
+    color: #000000;
+    height: 240px;
+}
+
+.nav-tabs .nav-link.active {
+    border-bottom: 2px solid black;
+    /* Đường border dưới của tab được chọn */
+}
+
+.nav-tabs .nav-link {
+    border-bottom: 2px solid transparent;
+    /* Đường border dưới của tab không được chọn */
+}

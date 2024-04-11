@@ -78,3 +78,19 @@ td input[type="checkbox"]{
     line-height: 12px;
   margin: 0 5px;
 }
+.seachButton{
+  background-color: white !important;
+  color:rgb(0 0 0 / 30%) !important;
+  border-color: rgb(0 0 0 / 30%) !important;
+  margin-right: 130px;
+}
+.seachButton:hover{
+  background-color: black !important;
+  color: white !important;
+}
+.nav-link {
+  text-decoration: none;
+  /* Loại bỏ dấu gạch dưới */
+  color: inherit;
+  /* Sử dụng màu chữ mặc định */
+}

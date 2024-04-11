@@ -1,0 +1,55 @@
+@media (min-width: 768px) {
+  .offcanvas {
+    width: 20%;
+  }
+
+  .main-content {
+    width: 80%;
+  }
+}
+.offcanvas_menu{
+    background-color: white !important;
+    color: rgb(0 0 0 / 30%) !important;
+    border-color: rgb(0 0 0 / 30%);
+}
+.offcanvas_menu:hover{
+    background-color: black !important;
+    color: white !important;
+    border-color: black !important;
+}
+.page_title{
+    padding:5px;
+    margin: 0;
+    font-size:20px;
+    font-weight: 500;
+}
+.form_page{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.user-count{
+    width: 350px;
+    height:48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #e0dedc;
+    border-radius: 40px;
+    margin: 12px auto;
+    padding: 10px;
+}
+.count span{
+    margin: 0 5px;
+}
+
+.customizableHome{
+    height: 400px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.customizableTab{
+    border-radius:10px;
+    background-color: #e0dedc;
+}
