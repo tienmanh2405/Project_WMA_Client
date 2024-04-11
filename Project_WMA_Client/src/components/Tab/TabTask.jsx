@@ -10,13 +10,13 @@ const TabTask = () => {
           fill
     >
       <Tab eventKey="upcoming" title="Upcoming">
-        Tab content for Home
+        Tab content for Upcoming
       </Tab>
       <Tab eventKey="overdue" title="Overdue">
-        Tab content for Profile
+        Tab content for Overdue
       </Tab>
       <Tab eventKey="completed" title="Completed">
-        Tab content for Contact
+        Tab content for Completed
       </Tab>
     </Tabs>
   )

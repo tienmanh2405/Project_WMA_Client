@@ -53,7 +53,7 @@ const Header = () => {
         <>
             <Navbar expand="lg" className="bg-body-tertiary">
                 <Container>
-            <NavLink to="/home" className="nav-link">
+            <NavLink to="/" className="nav-link">
               <Navbar.Brand><img width="50px" height="50px" src={logo_remove} alt="logo_remove" /> MasterTask</Navbar.Brand>
             </NavLink>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
