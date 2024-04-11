@@ -52,4 +52,8 @@
 .customizableTab{
     border-radius:10px;
     background-color: #e0dedc;
+    border: 1px solid #e0dedc;
+}
+.customizableTab:hover{
+    border: 1px solid rgb(191, 185, 185);
 }
