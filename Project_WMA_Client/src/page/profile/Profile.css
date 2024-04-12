@@ -1,0 +1,50 @@
+.page_title {
+    padding: 5px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.form_page-profile {
+    margin: 0 auto;
+    text-align: center;
+    background-color: #e0dedc;
+    border-radius: 20px;
+}
+.profile{
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+.profile img{
+    width: 200px !important; 
+    height: 200px;
+    border-radius: 50%;
+}
+.profile-content{
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+}
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    align-items: center;
+    margin: 0 0 20px;
+}
+.profile-info-container{
+    width: 200px;
+    display: flex;
+}
+
+.info-label {
+  font-weight: bold;
+}
+
+.info-content {
+  margin-left: 10px;
+}

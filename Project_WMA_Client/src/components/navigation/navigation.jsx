@@ -13,7 +13,7 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem(null, 'grp', null, [getItem('Home', 'home',<HomeOutlined />,null), getItem('My Task', '',<PartitionOutlined />,null),getItem('Notification', 'notification',<MessageOutlined />,null)],'group'),
+  getItem(null, 'grp', null, [getItem('Home', 'home',<HomeOutlined />,null), getItem('My Task', 'mytask',<PartitionOutlined />,null),getItem('Notification', 'notification',<MessageOutlined />,null)],'group'),
   getItem('Project', 'project', <ProductOutlined />, [
     getItem('Project 1', 'project'),
     getItem('Project 2', '2'),

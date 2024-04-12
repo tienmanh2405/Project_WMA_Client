@@ -22,19 +22,6 @@ function OffcanvasExample() {
           <Offcanvas.Title><img width="50px" height="50px" src={logo_remove} alt="logo_remove" /> MasterTask</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {/* <nav>
-            <ul>
-              <li className={selectedNavItem === 'Home' ? 'active' : ''}>
-                <NavLink to="/Home"> <button onClick={() => handleNavItemClicked('Home')}><i className="fa-solid fa-house"></i> Home</button></NavLink>
-              </li>
-              <li className={selectedNavItem === 'MyTask' ? 'active' : ''}>
-                <NavLink to="/MyTask"><button onClick={() => handleNavItemClicked('MyTask')}><i className="fa-solid fa-cubes-stacked"></i> My Task</button></NavLink>
-              </li>
-              <li className={selectedNavItem === 'Notification' ? 'active' : ''}>
-                <NavLink to="/Inbox"><button onClick={() => handleNavItemClicked('Notification')}><i className="fa-regular fa-envelope-open"></i> Notification</button></NavLink>
-              </li>
-            </ul>
-          </nav> */}
           <Navigation></Navigation>
         </Offcanvas.Body>
       </Offcanvas>

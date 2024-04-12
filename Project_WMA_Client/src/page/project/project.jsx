@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Header_login from '../../components/Header_login'
 import OffcanvasExample from '../../components/offcanvas/offcanvas';
 import './project.css';
+import TableProduct from '../../components/tableProduct/tableProduct';
 const Project = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [product, setProduct] = useState('Product');
@@ -38,7 +39,7 @@ const Project = () => {
           </div>
             <div className="row">
                 <div className="col-10 form_page">
-                    <div><span style={{ fontSize: '32px', marginBottom: '4px', lineHeight: '40px' }}>Have a great day, Manh</span></div>   
+                  <TableProduct></TableProduct>
                 </div>
           </div>
           

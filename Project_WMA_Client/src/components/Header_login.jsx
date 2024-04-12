@@ -32,7 +32,7 @@ const Header_login = () => {
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <NavDropdown title={<i className="fa-solid fa-user"></i>} id="basic-nav-dropdown">
-                          <NavDropdown.Item href="#action/3.1">Your profile</NavDropdown.Item>
+                          <NavDropdown.Item href="/profile">Your profile</NavDropdown.Item>
                           <NavDropdown.Divider />
                       <NavDropdown.Item href="/">
                         Sign out {<i className="fa-solid fa-right-from-bracket"></i>}

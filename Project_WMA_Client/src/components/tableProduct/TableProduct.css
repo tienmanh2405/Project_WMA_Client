@@ -1,0 +1,34 @@
+.priority-high .ant-select-selection-item{
+    background-color: red !important;
+}
+
+.priority-medium .ant-select-selection-item{
+    background-color: orange !important;
+}
+
+.priority-low  .ant-select-selection-item{
+    background-color: yellow !important;
+}
+
+.process-not-started  .ant-select-selection-item{
+    background-color: #1890ff !important;
+    /* Xanh dương */
+}
+
+.process-in-progress .ant-select-selection-item{
+    background-color: #434343 !important;
+    /* Xám đen */
+}
+
+.process-waiting   .ant-select-selection-item{
+    background-color: yellow !important;
+}
+
+.process-deferred .ant-select-selection-item{
+    background-color: orange !important;
+}
+
+.process-done  .ant-select-selection-item{
+    background-color: #52c41a !important;
+    /* Xanh lá */
+}
