@@ -1,59 +1,66 @@
 @media (min-width: 768px) {
-  .offcanvas {
-    width: 20%;
-  }
+    .offcanvas {
+        width: 20%;
+    }
 
-  .main-content {
-    width: 80%;
-  }
+    .main-content {
+        width: 80%;
+    }
 }
-.offcanvas_menu{
+
+.offcanvas_menu {
     background-color: white !important;
     color: rgb(0 0 0 / 30%) !important;
     border-color: rgb(0 0 0 / 30%);
 }
-.offcanvas_menu:hover{
+
+.offcanvas_menu:hover {
     background-color: black !important;
     color: white !important;
     border-color: black !important;
 }
-.page_title{
-    padding:5px;
+
+.page_title {
+    padding: 5px;
     margin: 0;
-    font-size:20px;
+    font-size: 20px;
     font-weight: 500;
 }
-.form_page{
+
+.form_page {
     margin: 0 auto;
     text-align: center;
 }
 
-.user-count{
+.user-count {
     width: 350px;
-    height:48px;
+    height: 48px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #e0dedc;
+    background-color: #f8f9fa;
     border-radius: 40px;
     margin: 12px auto;
     padding: 10px;
 }
-.count span{
+
+.count span {
     margin: 0 5px;
 }
 
-.customizableHome{
+.customizableHome {
     height: 400px;
     padding: 20px;
     display: flex;
     justify-content: space-evenly;
 }
-.customizableTab{
-    border-radius:10px;
-    background-color: #e0dedc;
-    border: 1px solid #e0dedc;
+
+.customizableTab {
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee0e2;
 }
-.customizableTab:hover{
-    border: 1px solid rgb(191, 185, 185);
+
+.customizableTab:hover {
+    border: 1px solid #f8f9fa;
 }

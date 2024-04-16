@@ -1,6 +1,7 @@
-.form_page-notification{
-    margin:0 auto;
-    background-color: #e0dedc;
-    border-radius:20px;
+.form_page-notification {
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    border-radius: 20px;
     padding: 20px;
+    border: 1px solid #e1e1e4;
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu } from 'antd';
-import {HomeOutlined,PartitionOutlined,ProductOutlined,MessageOutlined } from '@ant-design/icons';
+import { HomeOutlined, PartitionOutlined, ProductOutlined, MessageOutlined } from '@ant-design/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 function getItem(label, key, icon, children, type) {
   return {
@@ -13,8 +13,8 @@ function getItem(label, key, icon, children, type) {
 }
 
 const items = [
-  getItem(null, 'grp', null, [getItem('Home', 'home',<HomeOutlined />,null), getItem('My Task', 'mytask',<PartitionOutlined />,null),getItem('Notification', 'notification',<MessageOutlined />,null)],'group'),
-  getItem('Project', 'project', <ProductOutlined />, [
+  getItem(null, 'grp', null, [getItem('Home', 'home', <HomeOutlined />, null), getItem('My Task', 'mytask', <PartitionOutlined />, null), getItem('Notification', 'notification', <MessageOutlined />, null)], 'group'),
+  getItem('Project', 'allproject', <ProductOutlined />, [
     getItem('Project 1', 'project'),
     getItem('Project 2', '2'),
   ]),
@@ -31,12 +31,12 @@ const Navigation = () => {
   useEffect(() => {
     // Lấy phần pathname từ địa chỉ URL
     const path = location.pathname.substr(1); // Bỏ đi dấu '/'
-    setSelectedKey(path || 'project'); 
+    setSelectedKey(path || 'project');
   }, [location]);
   const onClick = (e) => {
-    navigate('/'+ e.key);
+    navigate('/' + e.key);
   };
-  
+
   return (
     <Menu
       onClick={onClick}
