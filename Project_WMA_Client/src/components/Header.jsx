@@ -56,16 +56,19 @@ const Header = () => {
       event.stopPropagation();
     } else {
       try {
-        const { userName, email, password, gender, dayOfBirth, phoneNumber, image } = formData;
-        console.log(formData);
-        const response = await axios.post('http://localhost:3000/users/register', {
-          userName,
-          email,
-          password,
-          gender,
-          dayOfBirth,
-          phoneNumber,
-          image
+        let Data = new FormData();
+        Data.append('userName', formData.userName);
+        Data.append('email', formData.email);
+        Data.append('password', formData.password);
+        Data.append('gender', formData.gender);
+        Data.append('dayOfBirth', formData.dayOfBirth);
+        Data.append('phoneNumber', formData.phoneNumber);
+        Data.append('image', formData.image);
+
+        const response = await axios.post('http://localhost:3000/users/register', Data, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         });
 
         console.log(response.data);
