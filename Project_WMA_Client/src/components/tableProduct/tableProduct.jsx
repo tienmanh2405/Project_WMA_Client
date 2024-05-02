@@ -1,74 +1,137 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, DatePicker, Cascader, Input, Button } from 'antd';
 import './TableProduct.css'; // Import CSS file for styling
+import apiTask from '../../api/task';
+import utc from 'dayjs/plugin/utc';
+import dayjs from 'dayjs';
 
-const TableProduct = () => {
+dayjs.extend(utc)
+
+const TableProduct = ({ projectId }) => {
+  const [tasks, setTasks] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const [tasks, setTasks] = useState([
-    { key: 1, dueDate: null, priority: ['High'], taskProcess: ['In Progress'], description: 'Description 1' },
-    { key: 2, dueDate: null, priority: ['Medium'], taskProcess: ['Not Started'], description: 'Description 2' },
-    { key: 3, dueDate: null, priority: ['Low'], taskProcess: ['Done'], description: 'Description 3' },
-    // Thêm các task khác tại đây nếu cần
-  ]);
 
+  let counter = 1;
+  useEffect(() => {
+    const fetchTasksByProject = async () => {
+      try {
+        const getTask = await apiTask.getTaskByProject(projectId);
+        const taskByProject = getTask.map((task) => {
+          const taskKey = task.key || counter++;
+          const dueDate = task.dueDate ? dayjs(task.dueDate).utc() : null;
+          return { key: taskKey, dueDate, priority: task.priority, taskProcess: task.taskProcess, description: task.description, taskId: task._id };
+        });
+        setTasks(taskByProject);
+      } catch (error) {
+        console.error('Error fetching tasks:', error);
+      }
+    };
+    fetchTasksByProject();
+  }, []);
   const onSelectChange = (newSelectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
+
+    const taskKeys = tasks.map(task => task.key);
+
+    const filteredSelectedRowKeys = taskKeys.filter(key => newSelectedRowKeys.includes(key));
+
+    console.log('selectedRowKeys changed: ', filteredSelectedRowKeys);
+    setSelectedRowKeys(filteredSelectedRowKeys);
   };
 
-  const handleDateChange = (date, record) => {
-    console.log('Due Date changed: ', date, ' for record: ', record);
-    const updatedTasks = tasks.map(task => {
-      if (task.key === record.key) {
-        return { ...task, dueDate: date };
+
+  const handleDateChange = async (date, record) => {
+    try {
+      const updatedTask = { ...record, dueDate: date };
+      await apiTask.fetchUpdateTask(record.taskId, updatedTask);
+      const updatedTasks = tasks.map(task => {
+        if (task.key === record.key) {
+          return updatedTask;
+        }
+        return task;
+      });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error fetching tasks:', error);
+    }
+  };
+
+  const handlePriorityChange = async (value, record) => {
+    try {
+      const taskPriority = value.join();
+      const updatedTask = { ...record, priority: taskPriority };
+      await apiTask.fetchUpdateTask(record.taskId, updatedTask);
+      const updatedTasks = tasks.map(task => {
+        if (task.key === record.key) {
+          return updatedTask;
+        }
+        return task;
+      });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error updating priority:', error);
+    }
+  };
+
+  const handleTaskProcessChange = async (value, record) => {
+    try {
+      const taskProcess = value.join();
+      const updatedTask = { ...record, taskProcess: taskProcess };
+      await apiTask.fetchUpdateTask(record.taskId, updatedTask);
+      const updatedTasks = tasks.map(task => {
+        if (task.key === record.key) {
+          return updatedTask;
+        }
+        return task;
+      });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error updating task process:', error);
+    }
+  };
+
+  const handleDescriptionChange = async (e, record) => {
+    try {
+      const updatedTask = { ...record, description: e.target.value };
+      await apiTask.fetchUpdateTask(record.taskId, updatedTask);
+      const updatedTasks = tasks.map(task => {
+        if (task.key === record.key) {
+          return updatedTask;
+        }
+        return task;
+      });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error updating description:', error);
+    }
+  };
+
+
+  const handleAddTask = async () => {
+    try {
+      const newKey = tasks.length + 1;
+      const newTask = { key: newKey, project: projectId, dueDate: null, priority: 'Medium', taskProcess: 'Not Started', description: '' };
+      await apiTask.fetchCreateTask(newTask);
+      setTasks([...tasks, newTask]);
+    } catch (error) {
+      console.error('Error creating description:', error);
+    }
+
+  };
+
+  const handleDeleteTask = async () => {
+    try {
+      for (const key of selectedRowKeys) {
+        const taskToDelete = tasks.find(task => task.key === key);
+        if (taskToDelete) {
+          await apiTask.fetchDeleteTask(taskToDelete._id);
+        }
       }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
-
-  const handlePriorityChange = (value, record) => {
-    console.log('Priority changed: ', value, ' for record: ', record);
-    const updatedTasks = tasks.map(task => {
-      if (task.key === record.key) {
-        return { ...task, priority: value };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
-
-  const handleTaskProcessChange = (value, record) => {
-    console.log('Task Process changed: ', value, ' for record: ', record);
-    const updatedTasks = tasks.map(task => {
-      if (task.key === record.key) {
-        return { ...task, taskProcess: value };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
-
-  const handleDescriptionChange = (e, record) => {
-    console.log('Description changed: ', e.target.value, ' for record: ', record);
-    const updatedTasks = tasks.map(task => {
-      if (task.key === record.key) {
-        return { ...task, description: e.target.value };
-      }
-      return task;
-    });
-    setTasks(updatedTasks);
-  };
-
-  const handleAddTask = () => {
-    const newKey = tasks.length + 1;
-    const newTask = { key: newKey, dueDate: null, priority: ['Medium'], taskProcess: ['Not Started'], description: '' };
-    setTasks([...tasks, newTask]);
-  };
-
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
+      const updatedTasks = tasks.filter(task => !selectedRowKeys.includes(task.key));
+      setTasks(updatedTasks);
+      setSelectedRowKeys([]);
+    } catch (error) {
+      console.error('Error deleting tasks:', error);
+    }
   };
 
   const priorityOptions = [
@@ -85,23 +148,30 @@ const TableProduct = () => {
     { value: 'Done', label: 'Done', className: 'process-done' },
   ];
 
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys) => setSelectedRowKeys(newSelectedRowKeys)
+  };
+
   return (
     <div>
-      <Button onClick={handleAddTask} style={{ marginBottom: 16 }}>Add Task</Button>
+      <Button onClick={handleAddTask} style={{ width: '100px', marginBottom: 16 }}>Add Task</Button>
+      <Button onClick={handleDeleteTask} style={{ width: '100px', marginBottom: 16 }}>Delete Task</Button>
       <Table
         rowSelection={rowSelection}
         dataSource={tasks}
-          >
-            <Table.Column
-              title="Description"
-              render={(text, record) => (
-                <Input.TextArea // Sử dụng Input.TextArea thay vì TextArea
-                  value={record.description}
-                  onChange={(e) => handleDescriptionChange(e, record)}
-                />
-              )}
+        pagination={{ pageSize: 4 }}
+      >
+        <Table.Column
+          title="Description"
+          render={(text, record) => (
+            <Input.TextArea
+              value={record.description}
+              onChange={(e) => handleDescriptionChange(e, record)}
             />
-      
+          )}
+        />
+
         <Table.Column title="Due Date" render={(text, record) => (
           <DatePicker value={record.dueDate} onChange={(date) => handleDateChange(date, record)} />
         )} />
@@ -111,7 +181,6 @@ const TableProduct = () => {
             value={record.priority}
             onChange={(value) => handlePriorityChange(value, record)}
             placeholder="Please select"
-            className={priorityOptions.className}
           />
         )} />
         <Table.Column title="Task Process" render={(text, record) => (
@@ -120,11 +189,10 @@ const TableProduct = () => {
             value={record.taskProcess}
             onChange={(value) => handleTaskProcessChange(value, record)}
             placeholder="Please select"
-                      className={taskProcessOptions.className}
-                     
+
           />
         )} />
-        </Table>
+      </Table>
     </div>
   );
 };

@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo_remove from '../images/logo-removebg.png';
 import Modal from 'react-bootstrap/Modal';
 import { Form, Button } from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import '../App.css';
 import axios from 'axios';
+// import apiAuth from "../api/auth";
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from "../store/slice/auth";
+import authService from "../services/auth";
 const Header = () => {
+  const dispatch = useDispatch();
+  const { isLogin } = useSelector((state => state.auth));
+  const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/home');
+    }
+  }, [isLogin, navigate]);
+
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showSignUpModal, setShowSignUpModal] = useState(false);
 
@@ -32,7 +49,13 @@ const Header = () => {
     image: '',
     agreeTerms: false
   });
-
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    setFormData(prevData => ({
+      ...prevData,
+      image: file
+    }));
+  };
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target;
     setFormData(prevData => ({
@@ -56,6 +79,8 @@ const Header = () => {
       event.stopPropagation();
     } else {
       try {
+        handleCloseSignUpModal();
+        setLoading(true);
         let Data = new FormData();
         Data.append('userName', formData.userName);
         Data.append('email', formData.email);
@@ -70,11 +95,16 @@ const Header = () => {
             'Content-Type': 'multipart/form-data'
           }
         });
-
+        const { success } = response.data
+        if (success === true) {
+          alert('Sign up successful');
+          handleShowLoginModal();
+        }
         console.log(response.data);
       } catch (error) {
-        console.error(error); // Log any errors that occur during signup
-        // Handle signup error, e.g., display error message to user
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
     setValidated(true);
@@ -82,11 +112,40 @@ const Header = () => {
 
   const handleSubmitLogin = async (event) => {
     event.preventDefault();
-    // Handle login form submission
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.stopPropagation();
+    } else {
+      try {
+        setLoading(true);
+        const { accessToken, refreshToken, userInfo } = await authService.login({
+          email: email,
+          password: password
+        })
+
+        if (accessToken && refreshToken) {
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('refreshToken', refreshToken);
+          dispatch(login({ accessToken, userInfo }))
+          navigate('/home');
+
+        } else {
+          alert("Đăng nhập không thành công");
+        }
+
+      } catch (error) {
+        console.error('Error logging in:', error);
+        // Xử lý lỗi đăng nhập
+      } finally {
+        setLoading(false);
+      }
+    }
+    setValidated(true);
   };
 
   return (
     <>
+      {loading && <div className="loading">Loading&#8230;</div>}
       <Navbar expand="lg" className="bg-body-tertiary">
         <Container>
           <NavLink to="/" className="nav-link">
@@ -221,7 +280,7 @@ const Header = () => {
               <Form.Control
                 type="file"
                 name="image"
-                onChange={handleChange}
+                onChange={handleImageChange}
                 required
               />
             </Form.Group>
@@ -263,43 +322,32 @@ const Header = () => {
             <Modal.Title>Login</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-
-            <div className="table-responsive">
-              <table className="table">
-                <tbody>
-                  <tr>
-                    <Form.Group>
-                      <Form.Label htmlFor="email">Email</Form.Label>
-                      <Form.Control
-                        type="email"
-                        id="email"
-                        className="input__type"
-                        placeholder="Enter email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">Please provide a valid email.</Form.Control.Feedback>
-                    </Form.Group>
-                  </tr>
-                  <tr>
-                    <Form.Group>
-                      <Form.Label htmlFor="password">Password</Form.Label>
-                      <Form.Control
-                        type="password"
-                        id="password"
-                        className="input__type"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                      />
-                      <Form.Control.Feedback type="invalid">Please provide a password.</Form.Control.Feedback>
-                    </Form.Group>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <Form.Group>
+              <Form.Label htmlFor="email">Email</Form.Label>
+              <Form.Control
+                type="email"
+                id="email"
+                className="input__type"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <Form.Control.Feedback type="invalid">Please provide a valid email.</Form.Control.Feedback>
+            </Form.Group>
+            <Form.Group>
+              <Form.Label htmlFor="password">Password</Form.Label>
+              <Form.Control
+                type="password"
+                id="password"
+                className="input__type"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              <Form.Control.Feedback type="invalid">Please provide a password.</Form.Control.Feedback>
+            </Form.Group>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseLoginModal}>

@@ -25,3 +25,40 @@
     border-bottom: 2px solid transparent;
     /* Đường border dưới của tab không được chọn */
 }
+
+.menu_Task {
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+}
+
+.menu_Task .fa-solid {
+    color: white;
+}
+
+.menu_Task:hover .fa-solid {
+
+    color: black;
+}
+
+.menu_Task:hover {
+    background-color: rgb(220, 216, 216);
+}
+
+/* class="fade tab-pane active show" */
+.fade.tab-pane.active.show {
+    overflow-y: auto;
+    height: 200px;
+}
+
+.createTask {
+    color: #c3c7cc;
+}
+
+.createTask:hover {
+    color: black;
+}

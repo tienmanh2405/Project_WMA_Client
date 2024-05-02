@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Menu } from 'antd';
 import { HomeOutlined, PartitionOutlined, ProductOutlined, MessageOutlined } from '@ant-design/icons';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 function getItem(label, key, icon, children, type) {
   return {
     key,
@@ -12,29 +12,28 @@ function getItem(label, key, icon, children, type) {
   };
 }
 
-const items = [
-  getItem(null, 'grp', null, [getItem('Home', 'home', <HomeOutlined />, null), getItem('My Task', 'mytask', <PartitionOutlined />, null), getItem('Notification', 'notification', <MessageOutlined />, null)], 'group'),
-  getItem('Project', 'allproject', <ProductOutlined />, [
-    getItem('Project 1', 'project'),
-    getItem('Project 2', '2'),
-  ]),
-  {
-    type: 'divider',
-  }
-];
 
-const Navigation = () => {
+
+const Navigation = ({ projects }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [selectedKey, setSelectedKey] = useState(null);
-
-  useEffect(() => {
-    // Lấy phần pathname từ địa chỉ URL
-    const path = location.pathname.substr(1); // Bỏ đi dấu '/'
-    setSelectedKey(path || 'project');
-  }, [location]);
+  const projectItems = projects.map((project) => {
+    return getItem(project.nameProject, project._id);
+  });
+  const items = [
+    getItem(null, 'grp', null, [getItem('Home', 'home', <HomeOutlined />, null), getItem('My Task', 'mytask', <PartitionOutlined />, null), getItem('Notification', 'notification', <MessageOutlined />, null)], 'group'),
+    getItem('Project', 'allproject', <ProductOutlined />, projectItems),
+    {
+      type: 'divider',
+    }
+  ];
   const onClick = (e) => {
-    navigate('/' + e.key);
+    console.log(e.key);
+    if (e.key === 'home' || e.key === 'mytask' || e.key === 'notification') {
+      navigate('/' + e.key);
+    } else {
+      navigate('/project/' + e.key);
+      window.location.reload();
+    }
   };
 
   return (
@@ -43,8 +42,7 @@ const Navigation = () => {
       style={{
         width: 256,
       }}
-      defaultSelectedKeys={[selectedKey]}
-      defaultOpenKeys={['sub1']}
+
       mode="inline"
       items={items}
     >

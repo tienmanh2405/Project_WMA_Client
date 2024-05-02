@@ -1,29 +1,45 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header_login from '../../components/Header_login'
 import OffcanvasExample from '../../components/offcanvas/offcanvas';
 import './project.css';
 import TableProduct from '../../components/tableProduct/tableProduct';
+import apiProject from '../../api/project';
+import { useParams } from 'react-router-dom';
 const Project = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [product, setProduct] = useState('Product');
-
+  const [projects, setProjects] = useState([]);
   // Hàm xử lý khi nhấp vào nội dung "Product"
   const handleProductClick = () => {
     setIsEditing(true); // Kích hoạt chế độ chỉnh sửa
   };
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const projectsData = await apiProject.fetchProjects();
+        setProjects(projectsData);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
 
+    fetchProjects();
+  }, []);
   // Hàm xử lý khi kết thúc chỉnh sửa
   const handleBlur = (e) => {
     setIsEditing(false); // Tắt chế độ chỉnh sửa
     setProduct(e.target.value); // Lưu nội dung mới của "Product"
   };
+
+  const { projectId } = useParams();
+
   return (
     <>
       <Header_login></Header_login>
       <div className="container-fluid">
         <div className="row" >
           <div style={{ display: 'flex', alignContent: 'center', margin: '20px 0' }}>
-            <OffcanvasExample />
+            <OffcanvasExample projects={projects} />
             {isEditing ? (
               <input
                 type="text"
@@ -39,7 +55,7 @@ const Project = () => {
           </div>
           <div className="row">
             <div className="col-10 form_page">
-              <TableProduct></TableProduct>
+              <TableProduct projectId={projectId}></TableProduct>
             </div>
           </div>
 

@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box {
+    width: calc(50% - 10px);
+    /* Độ rộng của mỗi hộp là 50% với khoảng cách 10px giữa chúng */
+    margin: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid rgb(225, 221, 221);
+    border-radius: 10px;
+}
+
+#createProject {
+    color: rgb(209, 202, 202);
+}
+
+#createProject:hover {
+    color: black;
+}
+
+.box:hover {
+    background-color: #f0f0f0;
+}
