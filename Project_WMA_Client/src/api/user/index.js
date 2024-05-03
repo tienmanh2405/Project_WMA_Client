@@ -8,6 +8,13 @@ const apiUser = {
         else {
             throw new Error('Khong co du lieu nguoi dung');
         }
+    },
+    getUser: async () => {
+        const { data } = await axiosInstance.get(API_CONFIG.BASE_URL + API_CONFIG.RESOURCES.USER + '/');
+        if (data) return data
+        else {
+            throw new Error('Khong co du lieu nguoi dung');
+        }
     }
 }
 export default apiUser

@@ -3,11 +3,8 @@ import apiUser from "../../api/user";
 
 const authService = {
     login: async (loginPayload) => {
-        // uncomment code ở dưới để gọi api backend
-
         try {
             const { accessToken, refreshToken, userId } = await apiAuth.login(loginPayload);
-            //    đoạn code set token vào local storage sẽ handle ở bên view
             if (accessToken && refreshToken) {
                 return {
                     userInfo: await apiUser.getUserById(userId),
@@ -19,7 +16,6 @@ const authService = {
         } catch (err) {
             throw new Error(err.message)
         }
-
     },
     renewAccessToken: async (localRefreshToken) => {
         // uncomment code ở dưới để gọi api backend

@@ -38,7 +38,6 @@ const Home = () => {
   }, []);
   const { userInfo } = useSelector((state => state.auth));
   const userName = userInfo && userInfo.data ? userInfo.data.userName : '';
-
   return (
     <>
       <Header_login></Header_login>

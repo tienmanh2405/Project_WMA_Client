@@ -294,11 +294,6 @@ const Header = () => {
                 required
               />
             </Form.Group>
-            {/* <Button variant="primary" type="submit">
-              Submit
-            </Button> */}
-
-
 
           </Modal.Body>
           <Modal.Footer>

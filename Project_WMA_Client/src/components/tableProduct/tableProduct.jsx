@@ -150,7 +150,7 @@ const TableProduct = ({ projectId }) => {
 
   const rowSelection = {
     selectedRowKeys,
-    onChange: (newSelectedRowKeys) => setSelectedRowKeys(newSelectedRowKeys)
+    onChange: onSelectChange
   };
 
   return (

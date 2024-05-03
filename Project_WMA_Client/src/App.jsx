@@ -37,7 +37,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<About />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home/" element={<Home />} />
         <Route path="/project/:projectId" element={<Project />} />
         <Route path="/mytask" element={<Task />} />
         <Route path="/profile" element={<Profile />} />
