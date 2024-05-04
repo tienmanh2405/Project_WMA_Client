@@ -2,12 +2,12 @@ import React from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import logo_remove from '../images/logo-removebg.png';
+import logo_remove from '../../images/logo-removebg.png';
 import { NavDropdown, Form, Col, Button, Row } from 'react-bootstrap';
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../store/slice/auth";
-import '../App.css';
+import { logout } from "../../store/slice/auth";
+import '../../App.css';
 const Header_login = () => {
   const dispatch = useDispatch(); // Khởi tạo dispatch hook
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Header_login from '../../components/Header_login.jsx';
+import Header_login from '../../components/header/Header_login.jsx';
 import moment from 'moment';
 import OffcanvasExample from '../../components/offcanvas/offcanvas.jsx';
 import './home.css'
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import TabProject from '../../components/tabProject/TabProject.jsx';
 import apiProject from '../../api/project/index.js';
+import Footer from '../../components/footer/Footer.jsx';
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -42,7 +43,7 @@ const Home = () => {
       <Header_login></Header_login>
       <div className="container-fluid">
         <div className="row" >
-          <div style={{ display: 'flex', alignContent: 'center', margin: '20px 0' }}>
+          <div style={{ display: 'flex', alignContent: 'center' }}>
             <OffcanvasExample />
             <span className="page_title" >Home</span>
           </div>
@@ -75,6 +76,7 @@ const Home = () => {
 
         </div>
       </div>
+      <Footer></Footer>
     </>
   )
 }

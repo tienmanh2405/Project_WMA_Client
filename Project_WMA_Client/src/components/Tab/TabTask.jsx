@@ -15,6 +15,9 @@ const TabTask = ({ tasks }) => {
   const completedTasks = tasks.filter(task => {
     return task.completed == true;
   });
+
+
+
   return (
     <Tabs
       defaultActiveKey="upcoming"

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Button, List, Skeleton } from 'antd';
-import HeaderLogin from '../../components/Header_login';
+import HeaderLogin from '../../components/header/Header_login';
 import OffcanvasExample from '../../components/offcanvas/offcanvas';
 import './Notification.css';
+import Footer from '../../components/footer/Footer';
 
 const count = 4;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
@@ -88,6 +89,7 @@ const NotificationPage = () => {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   );
 };

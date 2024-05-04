@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import Header_login from '../../components/Header_login'
+import Header_login from '../../components/header/Header_login'
 import OffcanvasExample from '../../components/offcanvas/offcanvas';
 import './project.css';
 import TableProduct from '../../components/tableProduct/tableProduct';
 import apiProject from '../../api/project';
 import { useParams } from 'react-router-dom';
+import Footer from '../../components/footer/Footer';
 const Project = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [product, setProduct] = useState('');
+  const [nameProject, setNameProject] = useState('');
   const [projects, setProjects] = useState([]);
   const { projectId } = useParams();
   // Hàm xử lý khi nhấp vào nội dung "Product"
@@ -19,20 +20,28 @@ const Project = () => {
       try {
         const projectsData = await apiProject.fetchProjectById(projectId);
         setProjects(projectsData);
-        setProduct(projectsData.nameProject);
+        setNameProject(projectsData.nameProject);
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        console.log('Error fetching projects:', error);
       }
     };
 
     fetchProjects();
   }, []);
   // Hàm xử lý khi kết thúc chỉnh sửa
+  const fetchProjects = async () => {
+    try {
+      const newNameProduct = await apiProject.fetchUpdatedProjects(projectId, { nameProject });
+      console.log(newNameProduct);
+    } catch (error) {
+      console.log('Error fetching projects:', error);
+    }
+  };
   const handleBlur = (e) => {
     setIsEditing(false); // Tắt chế độ chỉnh sửa
-    setProduct(e.target.value); // Lưu nội dung mới của "Product"
+    setNameProject(e.target.value);
+    fetchProjects();// Lưu nội dung mới của "Product"
   };
-
   return (
     <>
       <Header_login></Header_login>
@@ -43,14 +52,14 @@ const Project = () => {
             {isEditing ? (
               <input
                 type="text"
-                value={product}
-                onChange={(e) => setProduct(e.target.value)}
+                value={nameProject}
+                onChange={(e) => setNameProject(e.target.value)}
                 onBlur={handleBlur} // Xử lý khi mất focus khỏi input
                 autoFocus // Tự động focus vào input khi hiển thị
               />
             ) : (
               // Nếu không, hiển thị nội dung "Product" như bình thường
-              <span className='page_title' onClick={handleProductClick}>{product} <i className="fa-solid fa-pen"></i></span>
+              <span className='page_title' onClick={handleProductClick}>{nameProject} <i className="fa-solid fa-pen"></i></span>
             )}
           </div>
           <div className="row">
@@ -61,6 +70,7 @@ const Project = () => {
 
         </div>
       </div>
+      <Footer></Footer>
     </>
   )
 }

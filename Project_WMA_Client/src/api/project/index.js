@@ -14,7 +14,15 @@ const apiProject = {
     fetchProjectById: async (projectId) => {
         try {
             const response = await axiosInstance.get(`${API_CONFIG.BASE_URL}${API_CONFIG.RESOURCES.PROJECT}/${projectId}`);
-            return response.data.projects;
+            return response.data.project;
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            throw new Error('Failed to fetch projects');
+        }
+    }, fetchUpdatedProjects: async (projectId, Data) => {
+        try {
+            const response = await axiosInstance.put(`${API_CONFIG.BASE_URL}${API_CONFIG.RESOURCES.PROJECT}/${projectId}`, Data);
+            return response.data.project;
         } catch (error) {
             console.error('Error fetching projects:', error);
             throw new Error('Failed to fetch projects');

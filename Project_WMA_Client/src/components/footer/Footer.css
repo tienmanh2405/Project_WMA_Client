@@ -1,0 +1,26 @@
+.section_social-network {
+    width: 100%;
+    height: 10vh;
+    background-color: rgb(248 249 250);
+    position: absolute;
+    bottom: 0;
+}
+
+/*  */
+.section_social-network {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.social-network {
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.social-network i {
+    font-size: 30px;
+    color: black;
+}

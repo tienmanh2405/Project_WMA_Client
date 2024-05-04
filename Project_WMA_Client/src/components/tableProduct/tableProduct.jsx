@@ -123,7 +123,7 @@ const TableProduct = ({ projectId }) => {
       for (const key of selectedRowKeys) {
         const taskToDelete = tasks.find(task => task.key === key);
         if (taskToDelete) {
-          await apiTask.fetchDeleteTask(taskToDelete._id);
+          await apiTask.fetchDeleteTask(taskToDelete.taskId);
         }
       }
       const updatedTasks = tasks.filter(task => !selectedRowKeys.includes(task.key));
@@ -133,6 +133,7 @@ const TableProduct = ({ projectId }) => {
       console.error('Error deleting tasks:', error);
     }
   };
+
 
   const priorityOptions = [
     { value: 'High', label: 'High', className: 'priority-high' },
