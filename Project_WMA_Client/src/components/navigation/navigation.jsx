@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
-import { HomeOutlined, PartitionOutlined, ProductOutlined, MessageOutlined } from '@ant-design/icons';
+import { HomeOutlined, ProductOutlined, MessageOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 function getItem(label, key, icon, children, type) {
   return {
@@ -20,7 +20,7 @@ const Navigation = ({ projects }) => {
     return getItem(project.nameProject, project._id);
   });
   const items = [
-    getItem(null, 'grp', null, [getItem('Home', 'home', <HomeOutlined />, null), getItem('My Task', 'mytask', <PartitionOutlined />, null), getItem('Notification', 'notification', <MessageOutlined />, null)], 'group'),
+    getItem(null, 'grp', null, [getItem('Home', 'home', <HomeOutlined />, null), , getItem('Notification', 'notification', <MessageOutlined />, null)], 'group'),
     getItem('Project', 'allproject', <ProductOutlined />, projectItems),
     {
       type: 'divider',

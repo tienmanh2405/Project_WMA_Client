@@ -7,8 +7,9 @@ import apiProject from '../../api/project';
 import { useParams } from 'react-router-dom';
 const Project = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [product, setProduct] = useState('Product');
+  const [product, setProduct] = useState('');
   const [projects, setProjects] = useState([]);
+  const { projectId } = useParams();
   // Hàm xử lý khi nhấp vào nội dung "Product"
   const handleProductClick = () => {
     setIsEditing(true); // Kích hoạt chế độ chỉnh sửa
@@ -16,8 +17,9 @@ const Project = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const projectsData = await apiProject.fetchProjects();
+        const projectsData = await apiProject.fetchProjectById(projectId);
         setProjects(projectsData);
+        setProduct(projectsData.nameProject);
       } catch (error) {
         console.error('Error fetching projects:', error);
       }
@@ -30,8 +32,6 @@ const Project = () => {
     setIsEditing(false); // Tắt chế độ chỉnh sửa
     setProduct(e.target.value); // Lưu nội dung mới của "Product"
   };
-
-  const { projectId } = useParams();
 
   return (
     <>

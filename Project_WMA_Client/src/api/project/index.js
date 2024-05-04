@@ -10,6 +10,24 @@ const apiProject = {
             console.error('Error fetching projects:', error);
             throw new Error('Failed to fetch projects');
         }
+    },
+    fetchProjectById: async (projectId) => {
+        try {
+            const response = await axiosInstance.get(`${API_CONFIG.BASE_URL}${API_CONFIG.RESOURCES.PROJECT}/${projectId}`);
+            return response.data.projects;
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            throw new Error('Failed to fetch projects');
+        }
+    },
+    fetchCreateProjects: async (Data) => {
+        try {
+            const response = await axiosInstance.post(API_CONFIG.BASE_URL + API_CONFIG.RESOURCES.PROJECT + '/', Data);
+            return response.data;
+        } catch (error) {
+            console.error('Error fetching projects:', error);
+            throw new Error('Failed to fetch projects');
+        }
     }
 
 };

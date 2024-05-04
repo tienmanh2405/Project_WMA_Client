@@ -7,7 +7,6 @@ import TabTask from '../../components/Tab/TabTask.jsx';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import TabProject from '../../components/tabProject/TabProject.jsx';
-import axiosInstance from '../../api/axios.js';
 import apiProject from '../../api/project/index.js';
 
 const Home = () => {
