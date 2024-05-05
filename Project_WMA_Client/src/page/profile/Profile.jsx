@@ -8,6 +8,7 @@ import { Form, Button } from 'react-bootstrap';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import axiosInstance from '../../api/axios';
+import Footer from '../../components/footer/Footer';
 
 dayjs.extend(utc)
 
@@ -282,6 +283,7 @@ const Profile = () => {
           </Modal>
         </>
       )}
+      <Footer></Footer>
     </div>
 
   );

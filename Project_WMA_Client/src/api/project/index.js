@@ -36,6 +36,15 @@ const apiProject = {
             console.error('Error fetching projects:', error);
             throw new Error('Failed to fetch projects');
         }
+    },
+    searchProjects: async (searchQuery) => {
+        try {
+            const response = await axiosInstance.get(`${API_CONFIG.BASE_URL}${API_CONFIG.RESOURCES.PROJECT}/search/searchQuery?q=${searchQuery}`);
+            return response.data.projects;
+        } catch (error) {
+            console.error('Error searching projects:', error);
+            throw new Error('Failed to search projects');
+        }
     }
 
 };

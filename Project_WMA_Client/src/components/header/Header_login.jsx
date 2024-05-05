@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -8,6 +8,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slice/auth";
 import '../../App.css';
+import apiProject from "../../api/project";
 const Header_login = () => {
   const dispatch = useDispatch(); // Khởi tạo dispatch hook
 
@@ -18,26 +19,59 @@ const Header_login = () => {
     // Dispatch action logout
     dispatch(logout());
   };
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const search = await apiProject.searchProjects(searchQuery);
+      if (search) {
+        setSearchResults(search);
+      } else {
+        console.error('Failed to fetch search results');
+      }
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container style={{ display: 'flex', justifyContent: 'space-between' }}>
         <NavLink to="/home" className="nav-link">
           <Navbar.Brand><img width="50px" height="50px" src={logo_remove} alt="logo_remove" /> MasterTask</Navbar.Brand>
         </NavLink>
-        <Form inline={'true'} >
-          {/* style={{marginRight:"110px"}} */}
-          <Row>
-            <Col xs="auto">
-              <Form.Control
-                type="text"
-                placeholder="Search"
-                className=" mr-sm-2"
-              />
-            </Col>
-            <Col xs="auto">
-              <Button className="seachButton" type="submit"><i className="fa-solid fa-magnifying-glass"></i></Button>
-            </Col>
-          </Row>
+        <Form inline={'true'} onSubmit={handleSubmit}>
+          <div className="position-relative"> {/* Tạo vị trí tương đối cho Navbar để chứa kết quả tìm kiếm */}
+            <Row className="search-container">
+              <Col xs="auto" className="search-input">
+                <Form.Control
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                />
+              </Col>
+              <Col xs="auto">
+                <Button className="seachButton" type="submit">
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </Button>
+              </Col>
+            </Row>
+            <ul className="search-results">
+              {searchResults.map((result) => (
+                <li key={result._id}>
+                  <a href={`/project/${result._id}`}>{result.nameProject}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </Form>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -48,12 +82,12 @@ const Header_login = () => {
               <NavDropdown.Item href="/" onClick={handleLogout}>
                 Sign out {<i className="fa-solid fa-right-from-bracket"></i>}
               </NavDropdown.Item>
-
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
+
   )
 }
 

@@ -37,6 +37,15 @@ const apiTask = {
             console.error('Error creating task:', error);
             throw error;
         }
+    },
+    fetchSearch: async (searchQuery) => {
+        try {
+            const response = await axiosInstance.delete(`${API_CONFIG.BASE_URL}${API_CONFIG.RESOURCES.TASK}/${searchQuery}`);
+            return response.data;
+        } catch (error) {
+            console.error('Error creating task:', error);
+            throw error;
+        }
     }
 };
 

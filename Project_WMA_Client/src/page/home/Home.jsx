@@ -9,21 +9,26 @@ import { useSelector } from 'react-redux';
 import TabProject from '../../components/tabProject/TabProject.jsx';
 import apiProject from '../../api/project/index.js';
 import Footer from '../../components/footer/Footer.jsx';
+import axiosInstance from '../../api/axios.js';
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
 
+  const { userInfo } = useSelector((state => state.auth));
+  const userId = userInfo && userInfo.data ? userInfo.data._id : '';
+  const userName = userInfo && userInfo.data ? userInfo.data.userName : '';
+
   const currentDate = moment().format('dddd, MMMM D');
   useEffect(() => {
-    axios.get('http://localhost:3000/tasks/')
+    axiosInstance.get(`http://localhost:3000/tasks/${userId}`)
       .then(response => {
         setTasks(response.data.tasks);
       })
       .catch(error => {
         console.error('Error fetching tasks:', error);
       });
-  }, []);
+  }, [userId]);
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -36,8 +41,7 @@ const Home = () => {
 
     fetchProjects();
   }, []);
-  const { userInfo } = useSelector((state => state.auth));
-  const userName = userInfo && userInfo.data ? userInfo.data.userName : '';
+
   return (
     <>
       <Header_login></Header_login>

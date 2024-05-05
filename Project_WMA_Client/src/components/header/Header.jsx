@@ -127,7 +127,7 @@ const Header = () => {
           localStorage.setItem('accessToken', accessToken);
           localStorage.setItem('refreshToken', refreshToken);
           dispatch(login({ accessToken, userInfo }))
-          navigate('/home');
+          navigate("/home");
 
         } else {
           alert("Đăng nhập không thành công");

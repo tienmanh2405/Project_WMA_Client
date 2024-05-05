@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Table, DatePicker, Cascader, Input, Button } from 'antd';
-import './TableProduct.css'; // Import CSS file for styling
+import { Table, DatePicker, Cascader, Input, Button, Checkbox } from 'antd';
+import './TableProduct.css';
 import apiTask from '../../api/task';
 import utc from 'dayjs/plugin/utc';
 import dayjs from 'dayjs';
@@ -19,7 +19,7 @@ const TableProduct = ({ projectId }) => {
         const taskByProject = getTask.map((task) => {
           const taskKey = task.key || counter++;
           const dueDate = task.dueDate ? dayjs(task.dueDate).utc() : null;
-          return { key: taskKey, dueDate, priority: task.priority, taskProcess: task.taskProcess, description: task.description, taskId: task._id };
+          return { key: taskKey, dueDate, priority: task.priority, taskProcess: task.taskProcess, description: task.description, taskId: task._id, completed: task.completed || false };
         });
         setTasks(taskByProject);
       } catch (error) {
@@ -109,9 +109,10 @@ const TableProduct = ({ projectId }) => {
   const handleAddTask = async () => {
     try {
       const newKey = tasks.length + 1;
-      const newTask = { key: newKey, project: projectId, dueDate: null, priority: 'Medium', taskProcess: 'Not Started', description: '' };
-      await apiTask.fetchCreateTask(newTask);
+      const newTask = { key: newKey, project: projectId, dueDate: null, priority: 'Medium', taskProcess: 'Not Started', description: '', completed: false };
       setTasks([...tasks, newTask]);
+      await apiTask.fetchCreateTask(newTask);
+      fetchTasksByProject();
     } catch (error) {
       console.error('Error creating description:', error);
     }
@@ -133,6 +134,23 @@ const TableProduct = ({ projectId }) => {
       console.error('Error deleting tasks:', error);
     }
   };
+
+  const handleCompletedChange = async (e, record) => {
+    try {
+      const updatedTask = { ...record, completed: e.target.checked };
+      await apiTask.fetchUpdateTask(record.taskId, updatedTask);
+      const updatedTasks = tasks.map(task => {
+        if (task.key === record.key) {
+          return updatedTask;
+        }
+        return task;
+      });
+      setTasks(updatedTasks);
+    } catch (error) {
+      console.error('Error updating completed status:', error);
+    }
+  };
+
 
 
   const priorityOptions = [
@@ -162,6 +180,7 @@ const TableProduct = ({ projectId }) => {
         rowSelection={rowSelection}
         dataSource={tasks}
         pagination={{ pageSize: 4 }}
+        className="custom-table"
       >
         <Table.Column
           title="Description"
@@ -193,6 +212,19 @@ const TableProduct = ({ projectId }) => {
 
           />
         )} />
+        <Table.Column
+          title="Completed"
+          dataIndex="completed"
+          render={(text, record) => (
+            <div className="completed-checkbox">
+              <Checkbox
+                checked={record.completed}
+                onChange={(e) => handleCompletedChange(e, record)}
+              />
+            </div>
+          )}
+        />
+
       </Table>
     </div>
   );

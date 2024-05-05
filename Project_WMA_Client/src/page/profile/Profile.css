@@ -54,6 +54,15 @@
     font-weight: bold;
 }
 
+.edit_profile {
+    color: #b0aba5;
+}
+
+.edit_profile:hover {
+    color: black;
+
+}
+
 /* Animation */
 
 @-webkit-keyframes spinner {

@@ -115,7 +115,41 @@ td input[type="checkbox"] {
   /* Sử dụng màu chữ mặc định */
 }
 
+/* search */
+.search-results {
+  position: absolute;
+  top: calc(100% + 12px);
+  /* Hiển thị phía dưới thanh tìm kiếm với khoảng cách 10px */
+  left: 0;
+  width: 64%;
+  height: auto;
+  background-color: white;
+  max-height: 200px;
+  z-index: 1;
+}
 
+ul {
+  background-color: rgb(248 249 250) !important;
+}
+
+.search-results li {
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+
+}
+
+.search-results li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.search-results li {
+  line-height: 20px;
+}
+
+.search-results li:hover {
+  background-color: #f0f0f0;
+}
 
 /* Absolute Center Spinner */
 .loading {
