@@ -128,7 +128,7 @@ td input[type="checkbox"] {
   z-index: 1;
 }
 
-ul {
+.search-results ul {
   background-color: rgb(248 249 250) !important;
 }
 

@@ -47,7 +47,7 @@ const Header_login = () => {
           <Navbar.Brand><img width="50px" height="50px" src={logo_remove} alt="logo_remove" /> MasterTask</Navbar.Brand>
         </NavLink>
         <Form inline={'true'} onSubmit={handleSubmit}>
-          <div className="position-relative"> {/* Tạo vị trí tương đối cho Navbar để chứa kết quả tìm kiếm */}
+          <div className="position-relative">
             <Row className="search-container">
               <Col xs="auto" className="search-input">
                 <Form.Control

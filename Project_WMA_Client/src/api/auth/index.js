@@ -15,7 +15,7 @@ const apiAuth = {
     },
     renewAccessToken: async (payloadRenewToken) => {
         // dùng axios để bắn request login và nhận lại response
-        const { data } = await axiosInstance.post(API_CONFIG.BASE_URL + API_CONFIG.RESOURCES.USER + '/refreshToken', payloadRenewToken)
+        const { data } = await axiosInstance.post(API_CONFIG.BASE_URL + API_CONFIG.RESOURCES.USER + '/auth/refreshToken', payloadRenewToken)
 
         if (data) {
             return data

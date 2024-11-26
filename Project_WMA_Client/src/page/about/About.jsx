@@ -3,6 +3,7 @@ import Header from '../../components/header/Header.jsx';
 import logo from '../../images/logo.jpg';
 import Button from 'react-bootstrap/Button';
 import { NavLink } from 'react-router-dom';
+import Footer from '../../components/footer/Footer.jsx';
 const About = () => {
   return (
     <>
@@ -19,6 +20,7 @@ const About = () => {
           <img src={logo} alt="logo" />
         </section>
       </div>
+      <Footer></Footer>
     </>
   )
 }

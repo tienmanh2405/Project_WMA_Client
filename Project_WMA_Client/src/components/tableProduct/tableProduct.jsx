@@ -112,7 +112,7 @@ const TableProduct = ({ projectId }) => {
       const newTask = { key: newKey, project: projectId, dueDate: null, priority: 'Medium', taskProcess: 'Not Started', description: '', completed: false };
       setTasks([...tasks, newTask]);
       await apiTask.fetchCreateTask(newTask);
-      fetchTasksByProject();
+      window.location.reload();
     } catch (error) {
       console.error('Error creating description:', error);
     }
