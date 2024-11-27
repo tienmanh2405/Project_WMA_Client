@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo_remove from '../../images/logo-removebg.png';
 import { NavDropdown, Form, Col, Button, Row } from 'react-bootstrap';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slice/auth";
 import '../../App.css';
@@ -77,7 +77,7 @@ const Header_login = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <NavDropdown title={<i className="fa-solid fa-user"></i>} id="basic-nav-dropdown">
-              <NavDropdown.Item href="/profile">Your profile</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/profile">Your profile</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="/" onClick={handleLogout}>
                 Sign out {<i className="fa-solid fa-right-from-bracket"></i>}
