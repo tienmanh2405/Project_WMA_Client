@@ -1,5 +1,5 @@
 const API_CONFIG = {
-    BASE_URL: 'http://localhost:3000/',
+    BASE_URL: 'https://project-wna-2.onrender.com/',
     RESOURCES: {
         USER: 'users',
         TASK: 'tasks',
