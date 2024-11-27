@@ -32,7 +32,7 @@ const Navigation = ({ projects }) => {
       navigate('/' + e.key);
     } else {
       navigate('/project/' + e.key);
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
